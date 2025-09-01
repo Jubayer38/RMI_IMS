@@ -79,5 +79,26 @@ namespace RMI_IMS.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        // GET: api/inventory/reorder-alerts
+        [HttpGet("reorder-alerts")]
+        public async Task<IActionResult> GetReorderAlerts()
+        {
+            var alerts = await _context.InventoryItems
+                .Where(i => !i.IsSold)
+                .GroupBy(i => i.ProductId)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    ProductName = g.First().Product.Name,
+                    CurrentStock = g.Count(),
+                    ReorderLevel = g.First().ReorderLevel,
+                    NeedsReorder = g.Count() <= g.First().ReorderLevel
+                })
+                .Where(x => x.NeedsReorder)
+                .ToListAsync();
+
+            return Ok(alerts);
+        }
     }
 }
