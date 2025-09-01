@@ -1,0 +1,6 @@
+@RMI_IMS_HostAddress = http://localhost:5257
+
+GET {{RMI_IMS_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
