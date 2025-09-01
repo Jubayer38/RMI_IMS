@@ -19,5 +19,7 @@ namespace RMI_IMS.Data
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleItem> SaleItems { get; set; }
         public DbSet<WarrantyClaim> WarrantyClaims { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
     }
 }
